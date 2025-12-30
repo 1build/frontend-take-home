@@ -42,7 +42,6 @@ This project uses [Bun](https://bun.sh) as the package manager and runtime.
     - Press `i` to open iOS simulator
     - Press `a` to open Android emulator
     - Press `w` to open in web browser
-    - Scan the QR code with Expo Go app on your phone
 
 3. Run on specific platforms
 

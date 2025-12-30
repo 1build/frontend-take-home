@@ -23,6 +23,7 @@ export interface Supplier {
 
 export interface EstimateRow {
 	id: string
+	sectionId: string
 	title: string
 	price: number
 	quantity: number
@@ -33,13 +34,13 @@ export interface EstimateRow {
 export interface EstimateSection {
 	id: string
 	title: string
-	rows: EstimateRow[]
 }
 
 export interface Estimate {
 	id: string
 	title: string
 	sections: EstimateSection[]
+	rows: EstimateRow[]
 	createdAt: Date
 	updatedAt: Date
 }
@@ -70,114 +71,118 @@ export const sampleEstimate: Estimate = {
 		{
 			id: "s1",
 			title: "Demolition",
-			rows: [
-				{
-					id: "d1",
-					title: "Remove existing cabinets",
-					price: 45.0,
-					quantity: 8,
-					uom: "HR",
-				},
-				{
-					id: "d2",
-					title: "Debris disposal",
-					price: 450.0,
-					quantity: 1,
-					uom: "LS",
-				},
-			],
 		},
 		{
 			id: "s2",
 			title: "Cabinets",
-			rows: [
-				{
-					id: "c1",
-					title: "Base cabinets - Hampton Bay Shaker",
-					price: 250.0,
-					quantity: 12,
-					uom: "LF",
-					supplier: {
-						name: "Home Depot",
-						// This URL is just for demo purposes
-						productUrl:
-							"https://www.homedepot.com/p/Hampton-Bay-Designer-Series-Melvern-Assembled-36x34-5x23-75-in-Base-Kitchen-Cabinet-with-Ball-Bearing-Drawer-Glides-in-White-B36-MELW/305468743",
-						logoUrl:
-							"https://corporate.homedepot.com/sites/default/files/image_gallery/THD_logo.jpg",
-						sku: "305468743",
-					},
-				},
-				{
-					id: "c2",
-					title: "Upper cabinets - Hampton Bay Shaker",
-					price: 200.0,
-					quantity: 10,
-					uom: "LF",
-					supplier: {
-						name: "Home Depot",
-						// This URL is just for demo purposes
-						productUrl:
-							"https://www.homedepot.com/p/Hampton-Bay-Designer-Series-Melvern-Assembled-30x30x11-75-in-Wall-Kitchen-Cabinet-in-White-W3030-MELW/305468086",
-						logoUrl:
-							"https://corporate.homedepot.com/sites/default/files/image_gallery/THD_logo.jpg",
-						sku: "305468086",
-					},
-				},
-				{
-					id: "c3",
-					title: "Cabinet hardware - Matte Black Pulls",
-					price: 5.0,
-					quantity: 24,
-					uom: "EA",
-				},
-			],
 		},
 		{
 			id: "s3",
 			title: "Countertops",
-			rows: [
-				{
-					id: "ct1",
-					title: "Granite countertops - Luna Pearl",
-					price: 75.0,
-					quantity: 35,
-					uom: "SF",
-				},
-				{
-					id: "ct2",
-					title: "Backsplash installation",
-					price: 18.0,
-					quantity: 30,
-					uom: "SF",
-				},
-			],
 		},
 		{
 			id: "s4",
 			title: "Flooring",
-			rows: [
-				{
-					id: "f1",
-					title: "Porcelain tile - Carrara Look",
-					price: 12.0,
-					quantity: 120,
-					uom: "SF",
-				},
-				{
-					id: "f2",
-					title: "Floor underlayment",
-					price: 2.5,
-					quantity: 120,
-					uom: "SF",
-				},
-				{
-					id: "f3",
-					title: "Grout and materials",
-					price: 175.0,
-					quantity: 1,
-					uom: "LS",
-				},
-			],
+		},
+	],
+	rows: [
+		{
+			id: "d1",
+			sectionId: "s1",
+			title: "Remove existing cabinets",
+			price: 45.0,
+			quantity: 8,
+			uom: "HR",
+		},
+		{
+			id: "d2",
+			sectionId: "s1",
+			title: "Debris disposal",
+			price: 450.0,
+			quantity: 1,
+			uom: "LS",
+		},
+		{
+			id: "c1",
+			sectionId: "s2",
+			title: "Base cabinets - Hampton Bay Shaker",
+			price: 250.0,
+			quantity: 12,
+			uom: "LF",
+			supplier: {
+				name: "Home Depot",
+				// This URL is just for demo purposes
+				productUrl:
+					"https://www.homedepot.com/p/Hampton-Bay-Designer-Series-Melvern-Assembled-36x34-5x23-75-in-Base-Kitchen-Cabinet-with-Ball-Bearing-Drawer-Glides-in-White-B36-MELW/305468743",
+				logoUrl:
+					"https://corporate.homedepot.com/sites/default/files/image_gallery/THD_logo.jpg",
+				sku: "305468743",
+			},
+		},
+		{
+			id: "c2",
+			sectionId: "s2",
+			title: "Upper cabinets - Hampton Bay Shaker",
+			price: 200.0,
+			quantity: 10,
+			uom: "LF",
+			supplier: {
+				name: "Home Depot",
+				// This URL is just for demo purposes
+				productUrl:
+					"https://www.homedepot.com/p/Hampton-Bay-Designer-Series-Melvern-Assembled-30x30x11-75-in-Wall-Kitchen-Cabinet-in-White-W3030-MELW/305468086",
+				logoUrl:
+					"https://corporate.homedepot.com/sites/default/files/image_gallery/THD_logo.jpg",
+				sku: "305468086",
+			},
+		},
+		{
+			id: "c3",
+			sectionId: "s2",
+			title: "Cabinet hardware - Matte Black Pulls",
+			price: 5.0,
+			quantity: 24,
+			uom: "EA",
+		},
+		{
+			id: "ct1",
+			sectionId: "s3",
+			title: "Granite countertops - Luna Pearl",
+			price: 75.0,
+			quantity: 35,
+			uom: "SF",
+		},
+		{
+			id: "ct2",
+			sectionId: "s3",
+			title: "Backsplash installation",
+			price: 18.0,
+			quantity: 30,
+			uom: "SF",
+		},
+		{
+			id: "f1",
+			sectionId: "s4",
+			title: "Porcelain tile - Carrara Look",
+			price: 12.0,
+			quantity: 120,
+			uom: "SF",
+		},
+		{
+			id: "f2",
+			sectionId: "s4",
+			title: "Floor underlayment",
+			price: 2.5,
+			quantity: 120,
+			uom: "SF",
+		},
+		{
+			id: "f3",
+			sectionId: "s4",
+			title: "Grout and materials",
+			price: 175.0,
+			quantity: 1,
+			uom: "LS",
 		},
 	],
 }

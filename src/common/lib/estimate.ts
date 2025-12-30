@@ -1,17 +1,21 @@
-import { Estimate } from "@/data"
+import { Estimate, EstimateSection } from "@/data"
 
 export function calculateSectionTotal(
-	section: Estimate["sections"][0]
+	estimate: Estimate,
+	section: EstimateSection
 ): number {
-	return section.rows.reduce(
+	const sectionRows = estimate.rows.filter(
+		(row) => row.sectionId === section.id
+	)
+	return sectionRows.reduce(
 		(total, row) => total + row.price * row.quantity,
 		0
 	)
 }
 
 export function calculateEstimateTotal(estimate: Estimate): number {
-	return estimate.sections.reduce(
-		(total, section) => total + calculateSectionTotal(section),
+	return estimate.rows.reduce(
+		(total, row) => total + row.price * row.quantity,
 		0
 	)
 }

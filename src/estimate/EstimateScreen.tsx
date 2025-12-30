@@ -49,39 +49,48 @@ export default function EstimateScreen() {
 					onChangeText={updateTitle}
 					placeholder="Enter estimate title"
 				/>
-				{estimate.sections.map((section) => (
-					<View key={section.id} style={styles.section}>
-						<Pressable
-							onPress={() => handleSectionPress(section)}
-							style={styles.sectionHeader}
-						>
-							<Text>{section.title}</Text>
-							<Text>
-								${calculateSectionTotal(section).toFixed(2)}
-							</Text>
-						</Pressable>
-						{section.rows.map((row) => (
+				{estimate.sections.map((section) => {
+					const sectionRows = estimate.rows.filter(
+						(row) => row.sectionId === section.id
+					)
+					return (
+						<View key={section.id} style={styles.section}>
 							<Pressable
-								key={row.id}
-								style={styles.row}
-								onPress={() => handleItemPress(row)}
+								onPress={() => handleSectionPress(section)}
+								style={styles.sectionHeader}
 							>
-								<View style={styles.rowLeftContent}>
-									<Text style={styles.rowTitle}>
-										{row.title}
-									</Text>
-									<Text style={styles.rowPriceDetails}>
-										${row.price.toFixed(2)} × {row.quantity}{" "}
-										{row.uom}
-									</Text>
-								</View>
+								<Text>{section.title}</Text>
 								<Text>
-									${(row.price * row.quantity).toFixed(2)}
+									$
+									{calculateSectionTotal(
+										estimate,
+										section
+									).toFixed(2)}
 								</Text>
 							</Pressable>
-						))}
-					</View>
-				))}
+							{sectionRows.map((row) => (
+								<Pressable
+									key={row.id}
+									style={styles.row}
+									onPress={() => handleItemPress(row)}
+								>
+									<View style={styles.rowLeftContent}>
+										<Text style={styles.rowTitle}>
+											{row.title}
+										</Text>
+										<Text style={styles.rowPriceDetails}>
+											${row.price.toFixed(2)} ×{" "}
+											{row.quantity} {row.uom}
+										</Text>
+									</View>
+									<Text>
+										${(row.price * row.quantity).toFixed(2)}
+									</Text>
+								</Pressable>
+							))}
+						</View>
+					)
+				})}
 				<View style={styles.estimateTotal}>
 					<Text>Total:</Text>
 					<Text>${calculateEstimateTotal(estimate).toFixed(2)}</Text>

@@ -61,54 +61,63 @@ export default function EstimateScreenDesktop() {
 			<View style={styles.content}>
 				{/* Left side - Table */}
 				<View style={styles.tableContainer}>
-					{estimate.sections.map((section) => (
-						<View key={section.id} style={styles.section}>
-							<Pressable
-								style={[
-									styles.sectionHeader,
-									editMode?.type === "section" &&
-										editMode.data.id === section.id &&
-										styles.selectedSection,
-								]}
-								onPress={() => handleStartSectionEdit(section)}
-							>
-								<Text>{section.title}</Text>
-								<Text>
-									${calculateSectionTotal(section).toFixed(2)}
-								</Text>
-							</Pressable>
-							{/* Table rows */}
-							{section.rows.map((row) => (
+					{estimate.sections.map((section) => {
+						const sectionRows = estimate.rows.filter(
+							(row) => row.sectionId === section.id
+						)
+						return (
+							<View key={section.id} style={styles.section}>
 								<Pressable
-									key={row.id}
 									style={[
-										styles.tableRow,
-										editMode?.type === "item" &&
-											editMode.data.id === row.id &&
-											styles.selectedRow,
+										styles.sectionHeader,
+										editMode?.type === "section" &&
+											editMode.data.id === section.id &&
+											styles.selectedSection,
 									]}
-									onPress={() => handleStartItemEdit(row)}
+									onPress={() => handleStartSectionEdit(section)}
 								>
-									<View style={styles.rowLeftContent}>
-										<Text style={styles.rowTitle}>
-											{row.title}
-										</Text>
-										<View style={styles.rowDetails}>
-											<Text
-												style={styles.rowPriceDetails}
-											>
-												${row.price.toFixed(2)} ×{" "}
-												{row.quantity} {row.uom}
-											</Text>
-										</View>
-									</View>
+									<Text>{section.title}</Text>
 									<Text>
-										${(row.price * row.quantity).toFixed(2)}
+										$
+										{calculateSectionTotal(
+											estimate,
+											section
+										).toFixed(2)}
 									</Text>
 								</Pressable>
-							))}
-						</View>
-					))}
+								{/* Table rows */}
+								{sectionRows.map((row) => (
+									<Pressable
+										key={row.id}
+										style={[
+											styles.tableRow,
+											editMode?.type === "item" &&
+												editMode.data.id === row.id &&
+												styles.selectedRow,
+										]}
+										onPress={() => handleStartItemEdit(row)}
+									>
+										<View style={styles.rowLeftContent}>
+											<Text style={styles.rowTitle}>
+												{row.title}
+											</Text>
+											<View style={styles.rowDetails}>
+												<Text
+													style={styles.rowPriceDetails}
+												>
+													${row.price.toFixed(2)} ×{" "}
+													{row.quantity} {row.uom}
+												</Text>
+											</View>
+										</View>
+										<Text>
+											${(row.price * row.quantity).toFixed(2)}
+										</Text>
+									</Pressable>
+								))}
+							</View>
+						)
+					})}
 
 					<View style={styles.estimateTotal}>
 						<Text>Total:</Text>

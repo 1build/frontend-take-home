@@ -62,12 +62,9 @@ export function EstimateProvider({ children }: PropsWithChildren) {
 		setEstimate((prev) => ({
 			...prev,
 			updatedAt: new Date(),
-			sections: prev.sections.map((section) => ({
-				...section,
-				rows: section.rows.map((row) =>
-					row.id === rowId ? { ...row, ...updateItem } : row
-				),
-			})),
+			rows: prev.rows.map((row) =>
+				row.id === rowId ? { ...row, ...updateItem } : row
+			),
 		}))
 		setEditMode(null)
 	}
